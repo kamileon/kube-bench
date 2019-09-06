@@ -1,0 +1,55 @@
+---
+## Version-specific settings that override the values in cfg/config.yaml
+
+master:
+  apiserver:
+    bins:
+      - "kube-apiserver"
+    confs:
+      - /opt/rke/etc/kubernetes/ssl/kubecfg-kube-apiserver-proxy-client.yaml
+      - /opt/rke/etc/kubernetes/ssl/kubecfg-kube-apiserver-requestheader-ca.yaml
+    cafile:
+      - /opt/rke/etc/kubernetes/ssl/kube-apiserver-proxy-client-key.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-apiserver-proxy-client.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-apiserver-requestheader-ca-key.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-apiserver-requestheader-ca.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-apiserver-key.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-apiserver.pem
+
+  scheduler:
+    bins:
+      - "kube-scheduler"
+    confs:
+      - /opt/rke/etc/kubernetes/ssl/kubecfg-kube-scheduler.yaml
+    cafile:
+      - /opt/rke/etc/kubernetes/ssl/kube-scheduler-key.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-scheduler.pem
+
+  controllermanager:
+    bins:
+      - "kube-controller-manager"
+    confs:
+      - /opt/rke/etc/kubernetes/ssl/kubecfg-kube-controller-manager.yaml
+    cafile:
+      - /opt/rke/etc/kubernetes/ssl/kube-controller-manager-key.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-controller-manager.pem
+      - /opt/rke/etc/kubernetes/ssl/
+
+node:
+  kubelet:
+    bins:
+      - "kubelet"
+    confs:
+      - "/opt/rke/etc/kubernetes/ssl/kubecfg-kube-node.yaml"
+    cafile:
+      - /opt/rke/etc/kubernetes/ssl/kube-node-key.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-node.pem
+
+  proxy:
+    bins:
+      - "kube-proxy"
+    confs:
+      - /opt/rke/etc/kubernetes/ssl/kubecfg-kube-proxy.yaml
+    cafile:
+      - /opt/rke/etc/kubernetes/ssl/kube-proxy-key.pem
+      - /opt/rke/etc/kubernetes/ssl/kube-proxy.pem

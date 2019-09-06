@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kube-bench
+spec:
+  template:
+    metadata:
+      labels:
+        app: kube-bench
+    spec:
+      hostPID: true
+      containers:
+      - name: kube-bench
+        image: kamileon/kube-bench:alpha
+        command: ["kube-bench","--version","rke"]
+        volumeMounts:
+        - name: var-lib-etcd
+          mountPath: /var/lib/etcd
+        - name: var-lib-kubelet
+          mountPath: /var/lib/kubelet
+        - name: etc-kubernetes
+          mountPath: /etc/kubernetes
+          # /usr/bin is mounted to access kubectl / kubelet, for auto-detecting the Kubernetes version. 
+          # You can omit this mount if you specify --version as part of the command.           
+        # - name: usr-bin
+        #   mountPath: /usr/bin
+      restartPolicy: Never
+      volumes:
+      - name: var-lib-etcd
+        hostPath:
+          path: "/opt/rke/var/lib/etcd"
+      - name: var-lib-kubelet
+        hostPath:
+          path: "/opt/rke/var/lib/kubelet"
+      - name: etc-kubernetes
+        hostPath:
+          path: "/opt/rke/etc/kubernetes/"
+      - name: usr-bin
+        hostPath:
+          path: "/usr/bin"
